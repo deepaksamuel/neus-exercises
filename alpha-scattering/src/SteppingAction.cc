@@ -81,36 +81,36 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     G4AnalysisManager *man = G4AnalysisManager::Instance();
     man->FillNtupleDColumn(columnId++, eid);
     man->FillNtupleDColumn(columnId++, step->GetTrack()->GetDefinition()->GetPDGEncoding());
-    man->FillNtupleSColumn(columnId++, volume->GetName());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetParentID());
+    // man->FillNtupleSColumn(columnId++, volume->GetName());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetParentID());
 
     man->FillNtupleDColumn(columnId++, step->GetPreStepPoint()->GetPosition().x());
     man->FillNtupleDColumn(columnId++, step->GetPreStepPoint()->GetPosition().y());
     man->FillNtupleDColumn(columnId++, step->GetPreStepPoint()->GetPosition().z());
-    man->FillNtupleDColumn(columnId++, step->GetDeltaPosition().x());
-    man->FillNtupleDColumn(columnId++, step->GetDeltaPosition().y());
-    man->FillNtupleDColumn(columnId++, step->GetDeltaPosition().z());
+    // man->FillNtupleDColumn(columnId++, step->GetDeltaPosition().x());
+    // man->FillNtupleDColumn(columnId++, step->GetDeltaPosition().y());
+    // man->FillNtupleDColumn(columnId++, step->GetDeltaPosition().z());
 
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetVertexPosition().x());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetVertexPosition().y());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetVertexPosition().z());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetVertexPosition().x());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetVertexPosition().y());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetVertexPosition().z());
 
-    man->FillNtupleDColumn(columnId++, step->GetDeltaTime());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetGlobalTime());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetProperTime());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetLocalTime());
+    // man->FillNtupleDColumn(columnId++, step->GetDeltaTime());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetGlobalTime());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetProperTime());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetLocalTime());
 
-    man->FillNtupleDColumn(columnId++, step->GetNonIonizingEnergyDeposit());
-    man->FillNtupleDColumn(columnId++, step->GetTotalEnergyDeposit());
+    // man->FillNtupleDColumn(columnId++, step->GetNonIonizingEnergyDeposit());
+    // man->FillNtupleDColumn(columnId++, step->GetTotalEnergyDeposit());
     man->FillNtupleDColumn(columnId++, step->GetTrack()->GetTotalEnergy());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetKineticEnergy());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetKineticEnergy());
 
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentum().x());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentum().y());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentum().z());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentumDirection().x());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentumDirection().y());
-    man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentumDirection().z());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentum().x());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentum().y());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentum().z());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentumDirection().x());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentumDirection().y());
+    // man->FillNtupleDColumn(columnId++, step->GetTrack()->GetMomentumDirection().z());
 
     man->AddNtupleRow();
 

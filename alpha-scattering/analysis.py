@@ -5,8 +5,7 @@ import pandas as pd
 from scipy.optimize import curve_fit
 
 
-headers = ['eid','pid','detector','is_primary','x','y','z','del_x','del_y','del_z','vx','vy','vz','delt','globTime',"propTime",'localTime','ni_edep','tot_edep',
-           'tot_E','tot_KE','momx','momy','momz','px','py','pz']
+headers = ['eid','pid','x','y','z','tot_E']
 
 df = pd.read_csv("build/output_nt_simple.csv",skiprows=30,header=0,names=headers)
 

@@ -63,34 +63,32 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
  
   
-  // define materials
-  
-  G4Material* world_mat = nist->FindOrBuildMaterial("G4_Galactic");//Vaccum
-  G4Material* target_mat = nist->FindOrBuildMaterial("G4_Au"); // Gold target
-  G4Material* detector_mat = nist->FindOrBuildMaterial("G4_AIR"); // simple material
+
+ 
   
 
   // define sizes:
   // World (cube)
+    // define materials
+  G4Material* world_mat = nist->FindOrBuildMaterial("G4_Galactic");//Vaccum
+
+  // define sizes
   G4double world_sizeXYZ = 2*cm; // 2cm cube
-  // target (cube)
-  G4double target_sizeXY = 1*cm; // 1cm lateral size
-  G4double target_sizeZ  = 5*um; // 1 micron thickness
-  //detector (sphere)
-  G4double detecter_inner_radius = 0.999*cm; 
-  G4double detecter_outer_radius = 1.000*cm; 
 
 
  // create world volume
+
+ //solid volume
   G4Box* solidWorld =
     new G4Box("World",                       //its name
        0.5*world_sizeXYZ, 0.5*world_sizeXYZ, 0.5*world_sizeXYZ);     //its size
 
+// logical volume
   G4LogicalVolume* logicWorld =
     new G4LogicalVolume(solidWorld,          //its solid
                         world_mat,           //its material
                         "World");            //its name
-
+// physical volume
   G4VPhysicalVolume* physWorld =
     new G4PVPlacement(0,                     //no rotation
                       G4ThreeVector(),       //at (0,0,0) // world usually placed at 0,0,0
@@ -102,30 +100,53 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                       checkOverlaps);        //overlaps checking
 
 
+
+
   // create target
-  G4Box* solidTar =
-    new G4Box("Target",                    //its name
-        0.5*target_sizeXY, 0.5*target_sizeXY, 0.5*target_sizeZ); //its size
 
-  G4LogicalVolume* logicTar =
-    new G4LogicalVolume(solidTar,            //its solid
-                        target_mat,             //its material
-                        "Target");         //its name
+  // https://www.fe.infn.it/u/paterno/Geant4_tutorial/slides_further/Geometry/G4_Nist_Materials.pdf
+  // G4Material* target_mat = nist->FindOrBuildMaterial("??"); // Gold target
 
-  new G4PVPlacement(0,                       //no rotation
-                    G4ThreeVector(),         //at (0,0,0)
-                    logicTar,                //its logical volume
-                    "Target",              //its name
-                    logicWorld,              //its mother  volume
-                    false,                   //no boolean operation
-                    0,                       //copy number
-                    checkOverlaps);          //overlaps checking
+  // G4double target_sizeXY = ??*cm; // set lateral dimensions
+  // G4double target_sizeZ  = ??*cm; // set thickness
+
+  // G4Box* solidTar =                         // create solid volume 
+  //   new G4Box("Target",                    //its name
+  //       0.5*target_sizeXY, 0.5*target_sizeXY, 0.5*target_sizeZ); //its size
+
+  // G4LogicalVolume* logicTar =                // create logic volume
+  //   new G4LogicalVolume(solidTar,            //its solid
+  //                       target_mat,             //its material
+  //                       "Target");         //its name
+ 
+  // // create physical volume 
+  // new G4PVPlacement(0,                       //no rotation
+  //                   G4ThreeVector(),         //at (0,0,0)
+  //                   logicTar,                //its logical volume
+  //                   "Target",              //its name
+  //                   logicWorld,              //its mother  volume
+  //                   false,                   //no boolean operation
+  //                   0,                       //copy number
+  //                   checkOverlaps);          //overlaps checking
 
 
-    // create detector
-   //G4Sphere (const G4String &pName, G4double pRmin, G4double pRmax, G4double pSPhi, G4double pDPhi, G4double pSTheta, G4double pDTheta)
+  // // create detector
+  // //G4Sphere (const G4String &pName, G4double pRmin, G4double pRmax, G4double pSPhi, G4double pDPhi, G4double pSTheta, G4double pDTheta)
   
-  G4Sphere* solidDet =
+  G4Material* detector_mat = nist->FindOrBuildMaterial("G4_AIR"); // use simple material like air
+  
+ G4double detecter_inner_radius = 0.999*cm; 
+ G4double detecter_outer_radius = 1.000*cm; 
+  
+  // G4Sphere* solidDet =
+  //   new G4Sphere("Detector",                    //its name
+  //       detecter_inner_radius, detecter_outer_radius, 0.*degree, 360*degree, 0*degree, 180*degree); 
+
+  // create logic volume for detector
+
+  // create physical volume for detector
+
+    G4Sphere* solidDet =
     new G4Sphere("Detector",                    //its name
         detecter_inner_radius, detecter_outer_radius, 0.*degree, 360*degree, 0*degree, 180*degree); 
 
@@ -141,14 +162,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                     logicWorld,              //its mother  volume
                     false,                   //no boolean operation
                     0,                       //copy number
-                    checkOverlaps);          //overlaps checking
-  // Set Shape2 as scoring volume
-  //
-  // fScoringVolume = logicDet;
+                    checkOverlaps);   
 
-  //
-  //always return the physical World
-  //
   return physWorld;
 }
 
