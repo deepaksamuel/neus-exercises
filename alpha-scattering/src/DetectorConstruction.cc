@@ -144,7 +144,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                     checkOverlaps);          //overlaps checking
   // Set Shape2 as scoring volume
   //
-  fScoringVolume = logicDet;
+  // fScoringVolume = logicDet;
 
   //
   //always return the physical World
