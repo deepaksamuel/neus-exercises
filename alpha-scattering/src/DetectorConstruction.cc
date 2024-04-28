@@ -73,7 +73,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   G4Material* world_mat = nist->FindOrBuildMaterial("G4_Galactic");//Vaccum
 
   // define sizes
-  G4double world_sizeXYZ = 2*cm; // 2cm cube
+  G4double world_sizeXYZ = 2000*cm; // 2cm cube
 
 
  // create world volume
