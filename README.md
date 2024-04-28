@@ -26,3 +26,12 @@ This command will download all the files required for the exercises
     - everytime you make a change to your code, only the last two commands should be used:
         - `make`
         - `./exampleB1`
+
+
+# Links and other information
+Geant4 material database: https://www.fe.infn.it/u/paterno/Geant4_tutorial/slides_further/Geometry/G4_Nist_Materials.pdf 
+
+Geant4 particle codes: https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf 
+
+VSCode download link:
+https://code.visualstudio.com/download
