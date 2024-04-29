@@ -1,0 +1,15 @@
+/run/initialize
+/gps/particle mu+
+/gps/pos/type Plane
+/gps/pos/shape Rectangle
+/gps/pos/centre 0. 0. -5. cm
+/gps/pos/halfx 0.5 cm
+/gps/pos/halfy 0.5 cm
+/gps/ang/type iso
+/gps/ene/type Pow
+/gps/ene/min 200. MeV
+/gps/ene/max 10000. MeV
+/gps/ene/alpha -2.7
+
+
+/run/beamOn 100000

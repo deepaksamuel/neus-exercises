@@ -24,64 +24,51 @@
 // ********************************************************************
 //
 //
-/// \file PrimaryGeneratorAction.cc
-/// \brief Implementation of the B1::PrimaryGeneratorAction class
+/// \file ActionInitialization.cc
+/// \brief Implementation of the B1::ActionInitialization class
 
+#include "ActionInitialization.hh"
 #include "PrimaryGeneratorAction.hh"
-
-#include "G4LogicalVolumeStore.hh"
-#include "G4LogicalVolume.hh"
-#include "G4Box.hh"
-#include "G4RunManager.hh"
-#include "G4ParticleGun.hh"
-#include "G4ParticleTable.hh"
-#include "G4ParticleDefinition.hh"
-#include "G4SystemOfUnits.hh"
-#include "Randomize.hh"
+#include "RunAction.hh"
+#include "EventAction.hh"
+#include "SteppingAction.hh"
 
 namespace B1
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-PrimaryGeneratorAction::PrimaryGeneratorAction()
-{
-  G4int n_particle = 1;
-  fParticleGun  = new G4ParticleGun(n_particle);
+ActionInitialization::ActionInitialization()
+{}
 
-  // default particle kinematic
-    G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-    G4String particleName;
-    G4ParticleDefinition* particle
-      = particleTable->FindParticle(particleName="alpha");   // https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
-    fParticleGun->SetParticleDefinition(particle); // alpha particle code: 1000010020
-    
-    // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,??));
-    // fParticleGun->SetParticleEnergy(??.*MeV);
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+ActionInitialization::~ActionInitialization()
+{}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void ActionInitialization::BuildForMaster() const
+{
+  RunAction* runAction = new RunAction;
+  SetUserAction(runAction);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-PrimaryGeneratorAction::~PrimaryGeneratorAction()
+void ActionInitialization::Build() const
 {
-  delete fParticleGun;
-}
+  SetUserAction(new PrimaryGeneratorAction);
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  RunAction* runAction = new RunAction;
+  SetUserAction(runAction);
 
-void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
-{
-  //this function is called at the begining of each event
-  //
+  EventAction* eventAction = new EventAction(runAction);
+  SetUserAction(eventAction);
 
-
-  // fParticleGun->SetParticlePosition(G4ThreeVector(??,??,??));
-
-  fParticleGun->GeneratePrimaryVertex(anEvent);
+  SetUserAction(new SteppingAction(eventAction));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 }
-
-

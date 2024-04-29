@@ -47,17 +47,16 @@ namespace B1
 PrimaryGeneratorAction::PrimaryGeneratorAction()
 {
   G4int n_particle = 1;
-  fParticleGun  = new G4ParticleGun(n_particle);
+  fParticleGun  = new G4GeneralParticleSource();
 
   // default particle kinematic
-    G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-    G4String particleName;
-    G4ParticleDefinition* particle
-      = particleTable->FindParticle(particleName="alpha");   // https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
-    fParticleGun->SetParticleDefinition(particle); // alpha particle code: 1000010020
-    
-    // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,??));
-    // fParticleGun->SetParticleEnergy(??.*MeV);
+  // G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+  // G4String particleName;
+  // G4ParticleDefinition* particle
+  //   = particleTable->FindParticle(particleName="mu+");
+  // fParticleGun->SetParticleDefinition(particle);
+  // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,+1));
+  // fParticleGun->SetParticleEnergy(10.*MeV);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -75,7 +74,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   //
 
 
-  // fParticleGun->SetParticlePosition(G4ThreeVector(??,??,??));
+  // fParticleGun->SetParticlePosition(G4ThreeVector(0,0,-10*cm));
 
   fParticleGun->GeneratePrimaryVertex(anEvent);
 }

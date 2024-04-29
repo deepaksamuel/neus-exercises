@@ -28,7 +28,7 @@ df['phi'] = phi_rad
 
 plt.hist(np.degrees(df['theta']),bins=100,log=True)
 
-
+#%%
 
 
 # fitting cosec^4(theta/2) !!! needs updating

@@ -24,64 +24,39 @@
 // ********************************************************************
 //
 //
-/// \file PrimaryGeneratorAction.cc
-/// \brief Implementation of the B1::PrimaryGeneratorAction class
+/// \file DetectorConstruction.hh
+/// \brief Definition of the B1::DetectorConstruction class
 
-#include "PrimaryGeneratorAction.hh"
+#ifndef B1DetectorConstruction_h
+#define B1DetectorConstruction_h 1
 
-#include "G4LogicalVolumeStore.hh"
-#include "G4LogicalVolume.hh"
-#include "G4Box.hh"
-#include "G4RunManager.hh"
-#include "G4ParticleGun.hh"
-#include "G4ParticleTable.hh"
-#include "G4ParticleDefinition.hh"
-#include "G4SystemOfUnits.hh"
-#include "Randomize.hh"
+#include "G4VUserDetectorConstruction.hh"
+#include "globals.hh"
+
+class G4VPhysicalVolume;
+class G4LogicalVolume;
+
+/// Detector construction class to define materials and geometry.
 
 namespace B1
 {
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-PrimaryGeneratorAction::PrimaryGeneratorAction()
+class DetectorConstruction : public G4VUserDetectorConstruction
 {
-  G4int n_particle = 1;
-  fParticleGun  = new G4ParticleGun(n_particle);
+  public:
+    DetectorConstruction();
+    ~DetectorConstruction() override;
 
-  // default particle kinematic
-    G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-    G4String particleName;
-    G4ParticleDefinition* particle
-      = particleTable->FindParticle(particleName="alpha");   // https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
-    fParticleGun->SetParticleDefinition(particle); // alpha particle code: 1000010020
-    
-    // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,??));
-    // fParticleGun->SetParticleEnergy(??.*MeV);
+    G4VPhysicalVolume* Construct() override;
+
+    G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
+
+  protected:
+    G4LogicalVolume* fScoringVolume = nullptr;
+};
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-PrimaryGeneratorAction::~PrimaryGeneratorAction()
-{
-  delete fParticleGun;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
-{
-  //this function is called at the begining of each event
-  //
-
-
-  // fParticleGun->SetParticlePosition(G4ThreeVector(??,??,??));
-
-  fParticleGun->GeneratePrimaryVertex(anEvent);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-}
-
-
+#endif
